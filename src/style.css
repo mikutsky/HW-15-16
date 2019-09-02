@@ -1,0 +1,14 @@
+.air-logo {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  margin: 20px;
+}
+.air-body {
+  position: absolute;
+  margin-left: 260px;
+  height: 200px;
+}
+.air-ticket {
+  height: 320px;
+}

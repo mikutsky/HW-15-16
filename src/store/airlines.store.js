@@ -21,13 +21,18 @@ class AirlinesStore {
     return response.reduce((acc, item) => {
       acc[item.code] = {
         code: item.code,
-        // Логотипы авиа компании можно получить
+        // 3. Логотипы авиа компании можно получить
         // по адрему http://pics.avs.io/200/200/AIRLINES_CODE.png
         logo: `http://pics.avs.io/200/200/${item.code}.png`,
-        name: !item.name ? item.name_translations : item.name
+        name: !item.name ? item.name_translations.en : item.name
       };
       return acc;
     }, {});
+  }
+
+  getCompany(code) {
+    const company = this._airlines[code];
+    return company;
   }
 }
 

@@ -62,7 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
       "yyyy-MM-dd"
     );
 
-    // !!!!!!!!!!!!!!!!!!!!!!!!TODO
+    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
     countryOrigin.value = "UA";
     countryOrigin.dispatchEvent(new Event("change"));
     countryDestination.value = "AT";
