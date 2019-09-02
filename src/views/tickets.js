@@ -1,4 +1,4 @@
-import elements from '../config/ui';
+import elements from "../config/ui";
 
 class TicketsUI {
   constructor(el) {
@@ -6,15 +6,15 @@ class TicketsUI {
   }
 
   renderTickets(tickets) {
-    this.container.innerHTML = '';
+    this.container.innerHTML = "";
 
-    let fragment = '';
+    let fragment = "";
     tickets.forEach(ticket => {
       const template = TicketsUI.ticketTemplate(ticket);
       fragment += template;
     });
 
-    this.container.insertAdjacentHTML('afterbegin', fragment);
+    this.container.insertAdjacentHTML("afterbegin", fragment);
   }
 
   static ticketTemplate(ticket) {

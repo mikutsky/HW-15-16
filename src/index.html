@@ -37,8 +37,13 @@
           <h3 class="uk-card-title">Choose your location and dates</h3>
           <form name="locationControls" class="uk-grid-small" uk-grid>
             <div class="uk-width-1-4@s">
-              <select class="uk-select" name="countryOrigin" id="countryOrigin">
-                <option>Выберите страну отправления</option>
+              <select
+                class="uk-select"
+                name="countryOrigin"
+                id="countryOrigin"
+                disabled
+              >
+                <option value="select">Выберите страну отправления</option>
               </select>
             </div>
             <div class="uk-width-1-4@s">
@@ -54,8 +59,9 @@
                 class="uk-select"
                 name="countryDestination "
                 id="countryDestination"
+                disabled
               >
-                <option>Выберите страну назначения</option>
+                <option value="select">Выберите страну назначения</option>
               </select>
             </div>
             <div class="uk-width-1-4@s">
@@ -68,11 +74,11 @@
             </div>
             <div class="uk-width-1-4@s">
               <label for="startDate">Start date</label>
-              <input type="date" class="uk-input" id="startDate" />
+              <input type="date" class="uk-input" id="startDate" disabled />
             </div>
             <div class="uk-width-1-4@s">
               <label for="endDate">End date</label>
-              <input type="date" class="uk-input" id="endDate" />
+              <input type="date" class="uk-input" id="endDate" disabled />
             </div>
             <div class="uk-width-1-12@s">
               <button type="submit" class="uk-button uk-button-default">
