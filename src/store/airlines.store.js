@@ -3,7 +3,7 @@
 // В store мы сохраняем список авиакомпаний. Также должен быть метод получение
 // имени авиа компании для вывода в разметке.
 
-import aviaSalesService from "../services/airlines.services";
+import airlinesService from "../services/airlines.services";
 
 class AirlinesStore {
   constructor(api) {
@@ -36,6 +36,6 @@ class AirlinesStore {
   }
 }
 
-const airlinesStore = new AirlinesStore(aviaSalesService);
+const airlinesStore = new AirlinesStore(airlinesService);
 
 export default airlinesStore;

@@ -37,7 +37,7 @@ class TicketsUI {
         <p><strong>${ticket.origin} - ${ticket.destination}</strong>, ${
       ticket.transfers !== 0
         ? `transfers: ${ticket.transfers}`
-        : `direct flight`
+        : `прямой рейс`
     }</p>
         <h2 style="margin:8px 0px"><strong>$${ticket.price}</strong></h2>
         <p>Date: ${ticket.departure_at}, Flight number: ${

@@ -47,7 +47,7 @@ class LocationsStore {
 
       acc[value.id].departure_at = formateDateFromString(
         value.departure_at,
-        "mm.dd.yyyy hh:mm"
+        "MM.dd.yyyy hh:mm"
       );
       return acc;
     }, {});
