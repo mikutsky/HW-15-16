@@ -51,7 +51,10 @@ class FormUi {
 
   static generateSelectFragment(arr) {
     const fragment = document.createDocumentFragment();
-    arr.forEach(({ name, code }) => {
+    // Если имя города не указанно, берем его название на английском
+    // из name_translations.en
+    arr.forEach(({ name, code, name_translations: { en } }) => {
+      if (!name) name = en;
       const option = FormUi.optionTemplate(name, code);
       fragment.appendChild(option);
     });
