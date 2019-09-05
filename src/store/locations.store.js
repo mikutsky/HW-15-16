@@ -1,6 +1,5 @@
 import aviaSalesService from "../services/aviasales.services";
 import { generateId } from "../helpers/uuid";
-import { formateDateFromString } from "../helpers/date";
 
 class LocationsStore {
   constructor(api, generateId) {
@@ -27,28 +26,22 @@ class LocationsStore {
     return response;
   }
 
-  async fetchTickets(params) {
+  async fetchTickets(params, cb) {
     const response = await this.api.prices(params);
-    this._lastSearch = this.updateData(response.data);
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
-    // console.log(this.cities);
-    // console.log(this._lastSearch);
+    this._lastSearch = this.updateData(response.data, cb);
   }
 
-  updateData(data) {
+  updateData(data, cb) {
     return Object.entries(data).reduce((acc, [, value]) => {
       value.id = this.generateId();
 
       acc[value.id] = value;
-
       acc[value.id].origin = this.getCityNameByCityCode(value.origin);
       acc[value.id].destination = this.getCityNameByCityCode(value.destination);
 
-      acc[value.id].departure_at = formateDateFromString(
-        value.departure_at,
-        "MM.dd.yyyy hh:mm"
-      );
+      // Коллбэк функция для модификации записи о билете, передается из app.js
+      cb(acc[value.id]);
+
       return acc;
     }, {});
   }

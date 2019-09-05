@@ -1,5 +1,6 @@
 import "./style.css";
 import "./plugins";
+import UIkit from "uikit";
 import locationsStore from "./store/locations.store";
 import airlinesStore from "./store/airlines.store";
 import favoritesStore from "./store/favorites.store";
@@ -16,7 +17,8 @@ const {
   endDate,
   cityOrigin,
   cityDestination,
-  ticketsContainer
+  ticketsContainer,
+  favoritesList
 } = elements;
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -40,6 +42,32 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("add-favorites")) {
       const id = e.target.dataset.id;
       onAddToFavorites(id);
+      // 5. При добавлении билета выводить уведомление что билет добавлен
+      // успешно
+      UIkit.notification(
+        `
+        <span uk-icon='icon: check'></span>
+        Билет добавлен успешно!`,
+        {
+          status: "success"
+        }
+      );
+    }
+  });
+  // 1. Реализовать удаление билета из избранного
+  favoritesList.addEventListener("click", e => {
+    if (e.target.classList.contains("delete-favorite")) {
+      const id = e.target.dataset.id;
+      onRemoveFromFavorites(id);
+      // 4. После удаления выводить уведомление что билет удален успешно
+      UIkit.notification(
+        `
+      <span uk-icon='icon: check'></span>
+      Билет удален успешно!`,
+        {
+          status: "danger"
+        }
+      );
     }
   });
 
@@ -50,25 +78,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     formUi.renderCountries(locationsStore.countries);
 
+    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
     // Заполняем DatePick-ры
     const dateNow = new Date();
     startDate.value = formateDateFromString(dateNow, "yyyy-MM-dd");
-    endDate.value = formateDateFromString(
-      new Date(
-        dateNow.getFullYear(),
-        dateNow.getMonth(),
-        dateNow.getDate() + 7
-      ),
-      "yyyy-MM-dd"
-    );
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
-    countryOrigin.value = "UA";
-    countryOrigin.dispatchEvent(new Event("change"));
-    countryDestination.value = "AT";
-    countryDestination.dispatchEvent(new Event("change"));
-    cityOrigin.value = "IEV";
-    cityDestination.value = "VIE";
   }
 
   function onCountryChange(type, value) {
@@ -82,18 +95,42 @@ document.addEventListener("DOMContentLoaded", () => {
     const origin = cityOrigin.value;
     const destination = cityDestination.value;
 
-    await locationsStore.fetchTickets({
-      origin,
-      destination,
-      depart_date,
-      return_date
-    });
+    await locationsStore.fetchTickets(
+      {
+        origin,
+        destination,
+        depart_date,
+        return_date
+      },
+      //Коллбэк функция, модифицирует записи билетов, приводя к нужному виду
+      ticket => {
+        ticket.airlineLogo = airlinesStore.getCompany(ticket.airline).logo;
+        ticket.airlineName = airlinesStore.getCompany(ticket.airline).name;
+
+        ticket.transfers =
+          ticket.transfers !== 0
+            ? `transfers: ${ticket.transfers}`
+            : `прямой рейс`;
+
+        ticket.price = "$" + ticket.price;
+        ticket.departure_at = formateDateFromString(
+          ticket.departure_at,
+          "MM.dd.yyyy hh:mm"
+        );
+      }
+    );
     ticketsUI.renderTickets(locationsStore.lastSearch);
   }
 
   function onAddToFavorites(id) {
     const ticket = locationsStore.getTicketById(id);
     favoritesStore.addNewFavorit(ticket);
+    favoritesUI.renderFavorites(favoritesStore.favorites);
+  }
+  // 1. Реализовать удаление билета из избранного, обработчик события
+  function onRemoveFromFavorites(id) {
+    const ticket = locationsStore.getTicketById(id);
+    favoritesStore.removeFavorit(ticket);
     favoritesUI.renderFavorites(favoritesStore.favorites);
   }
 });

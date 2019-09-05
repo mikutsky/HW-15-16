@@ -20,9 +20,9 @@
               ></span>
               <div class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">
-                  Favorites
+                  Favorites: <strong>0</strong>
                 </button>
-                <div uk-dropdown="mode: click">
+                <div uk-dropdown="mode: click" style="width: 400px">
                   <ul class="favorites-items"></ul>
                 </div>
               </div>
@@ -31,7 +31,7 @@
         </ul>
       </div>
     </nav>
-    
+
     <div class="form-controls  uk-margin-large">
       <div class="uk-container">
         <div class="uk-card uk-card-body uk-card-default">
@@ -94,6 +94,7 @@
       <div
         class="tickets-container uk-child-width-1-2@s uk-child-width-1-3@m"
         uk-grid="masonry: true"
+        style="margin-left: 0px"
       ></div>
     </div>
   </body>

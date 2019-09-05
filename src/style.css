@@ -4,11 +4,47 @@
   height: 200px;
   margin: 20px;
 }
+
 .air-body {
   position: absolute;
   margin-left: 260px;
-  height: 200px;
+  min-height: 200px;
 }
+
 .air-ticket {
-  height: 320px;
+  min-height: 320px;
+}
+
+.favorit-item {
+  text-transform: none;
+  margin: 10px;
+}
+
+.favorit-item-logo {
+  background-size: cover;
+  width: 60px;
+  height: 60px;
+  margin: 0px 15px 0px 0px;
+  float: left;
+}
+
+.favorit-item-body {
+  min-height: 60px;
+}
+
+.favorit-item-body button {
+  height: 30px;
+  padding: 0px 5px;
+  margin: 0px 0px 15px 15px;
+  float: right;
+}
+
+.favorit-item-body p {
+  margin: 0px;
+}
+
+.favorites-items {
+  list-style-type: none;
+  padding: 0px;
+  margin: 0px;
 }
