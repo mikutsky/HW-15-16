@@ -1,5 +1,5 @@
 import elements from "../config/ui";
-// импортировать loactions store
+
 class FavoritesUI {
   constructor(el) {
     this.favoritesList = el.favoritesList;
@@ -16,6 +16,7 @@ class FavoritesUI {
 
     this.favoritesList.insertAdjacentHTML("afterbegin", fragment);
 
+    // ДЗ-16
     // 3. Вывод количества избранных билетов в кнопку по которой вызывается
     // дропдаун
     this.favoritesList.closest(
@@ -24,6 +25,7 @@ class FavoritesUI {
       <strong>${this.favoritesList.childElementCount}</strong>`;
   }
 
+  // ДЗ-16
   // 2. В избранных билетах выводить название от куда куда летим, логотип
   // авиакомпании и время
   static listTemplate(item) {

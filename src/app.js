@@ -42,6 +42,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (e.target.classList.contains("add-favorites")) {
       const id = e.target.dataset.id;
       onAddToFavorites(id);
+      // ДЗ-16
       // 5. При добавлении билета выводить уведомление что билет добавлен
       // успешно
       UIkit.notification(
@@ -49,23 +50,27 @@ document.addEventListener("DOMContentLoaded", () => {
         <span uk-icon='icon: check'></span>
         Билет добавлен успешно!`,
         {
-          status: "success"
+          status: "success",
+          timeout: 1000
         }
       );
     }
   });
+  // ДЗ-16
   // 1. Реализовать удаление билета из избранного
   favoritesList.addEventListener("click", e => {
     if (e.target.classList.contains("delete-favorite")) {
       const id = e.target.dataset.id;
       onRemoveFromFavorites(id);
+      // ДЗ-16
       // 4. После удаления выводить уведомление что билет удален успешно
       UIkit.notification(
         `
-      <span uk-icon='icon: check'></span>
+      <span uk-icon='icon: close'></span>
       Билет удален успешно!`,
         {
-          status: "danger"
+          status: "danger",
+          timeout: 1000
         }
       );
     }
@@ -77,11 +82,6 @@ document.addEventListener("DOMContentLoaded", () => {
     await airlinesStore.init();
 
     formUi.renderCountries(locationsStore.countries);
-
-    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
-    // Заполняем DatePick-ры
-    const dateNow = new Date();
-    startDate.value = formateDateFromString(dateNow, "yyyy-MM-dd");
   }
 
   function onCountryChange(type, value) {
@@ -127,6 +127,7 @@ document.addEventListener("DOMContentLoaded", () => {
     favoritesStore.addNewFavorit(ticket);
     favoritesUI.renderFavorites(favoritesStore.favorites);
   }
+  // ДЗ-16
   // 1. Реализовать удаление билета из избранного, обработчик события
   function onRemoveFromFavorites(id) {
     const ticket = locationsStore.getTicketById(id);

@@ -25,16 +25,18 @@ class FormUi {
 
   renderCities(selectName, cities) {
     this[selectName].innerHTML = "";
-    // Делаем dataPick-ры активным
+    // Делаем dataPick-ры и submit активным
     if (
       this.countryOrigin.value !== "select" &&
       this.countryDestination.value !== "select"
     ) {
       formUi.startDate.disabled = false;
       formUi.endDate.disabled = false;
+      formUi.form.querySelector("[type='submit']").disabled = false;
     } else {
       formUi.startDate.disabled = true;
       formUi.endDate.disabled = true;
+      formUi.form.querySelector("[type='submit']").disabled = true;
     }
     // Делаем поля не активным, если городов в списке нет
     if (!cities.length) {

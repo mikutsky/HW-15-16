@@ -21,6 +21,7 @@ class AirlinesStore {
     return response.reduce((acc, item) => {
       acc[item.code] = {
         code: item.code,
+        // Задание(ДЗ) №15:
         // 3. Логотипы авиа компании можно получить
         // по адрему http://pics.avs.io/200/200/AIRLINES_CODE.png
         logo: `http://pics.avs.io/200/200/${item.code}.png`,

@@ -20,6 +20,9 @@
               ></span>
               <div class="uk-inline">
                 <button class="uk-button uk-button-default" type="button">
+                  <!-- ДЗ-16
+                    3. Вывод количества избранных билетов в кнопку по которой вызывается
+                    дропдаун. Со старта 0 выводим -->
                   Favorites: <strong>0</strong>
                 </button>
                 <div uk-dropdown="mode: click" style="width: 400px">
@@ -82,7 +85,11 @@
               <input type="date" class="uk-input" id="endDate" disabled />
             </div>
             <div class="uk-width-1-12@s">
-              <button type="submit" class="uk-button uk-button-default">
+              <button
+                type="submit"
+                class="uk-button uk-button-default"
+                disabled
+              >
                 Search
               </button>
             </div>
