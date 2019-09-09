@@ -1,5 +1,6 @@
-import aviaSalesService from '../services/aviasales.services';
-import { generateId } from '../helpers/uuid';
+import aviaSalesService from "../services/aviasales.services";
+import { generateId } from "../helpers/uuid";
+import { formateDateFromString } from "../helpers/date";
 
 class LocationsStore {
   constructor(api, generateId) {
@@ -17,7 +18,7 @@ class LocationsStore {
   async init() {
     const response = await Promise.all([
       this.api.countries(),
-      this.api.cities(),
+      this.api.cities()
     ]);
 
     const [countries, cities] = response;
@@ -29,13 +30,25 @@ class LocationsStore {
   async fetchTickets(params) {
     const response = await this.api.prices(params);
     this._lastSearch = this.updateData(response.data);
-    console.log(this._lastSearch);
+
+    // !!!!!!!!!!!!!!!!!!!!!!!!TODO!!!!!!!!!!!!!!!!!!!!!!!!
+    // console.log(this.cities);
+    // console.log(this._lastSearch);
   }
 
   updateData(data) {
     return Object.entries(data).reduce((acc, [, value]) => {
       value.id = this.generateId();
+
       acc[value.id] = value;
+
+      acc[value.id].origin = this.getCityNameByCityCode(value.origin);
+      acc[value.id].destination = this.getCityNameByCityCode(value.destination);
+
+      acc[value.id].departure_at = formateDateFromString(
+        value.departure_at,
+        "MM.dd.yyyy hh:mm"
+      );
       return acc;
     }, {});
   }
@@ -45,6 +58,9 @@ class LocationsStore {
   }
 
   // метод для получения названия города
+  getCityNameByCityCode(code) {
+    return this.cities.find(city => city.code === code).name;
+  }
 
   getTicketById(id) {
     return this._lastSearch[id];
